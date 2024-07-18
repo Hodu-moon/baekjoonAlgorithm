@@ -25,10 +25,9 @@ public class Main {
             }
         }
 
-        for(int i = 0; i < N; i++){
-            visited[i] = true;
-            dfs(i, i, 0, 0);
-        }
+            visited[1] = true;
+            dfs(1, 1, 0, 0);
+
 
         System.out.println(cost);
     }
