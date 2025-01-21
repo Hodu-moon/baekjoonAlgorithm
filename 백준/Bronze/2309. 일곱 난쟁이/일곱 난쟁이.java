@@ -1,53 +1,55 @@
-
-import java.util.*;
-
-import static java.util.Arrays.sort;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
-    public static int su = 9;
-    public static int[] dwarf;
-    public static void main(String []args){
+    public static void main(String[] args) throws Exception {
+                Scanner sc = new Scanner(System.in);
 
-        makeDwarf();
-        findDwarf();
-
-
-    }
-    public static void findDwarf(){
         int sum = 0;
-        for(int i = 0; i < dwarf.length; i ++){
-            sum += dwarf[i];
-        }
 
-        for(int i = 0; i < su; i++){
-            for(int j = 0; j < su; j++){
-                if(i != j) {
-                    int sum1 = sum - dwarf[i] - dwarf[j];
-                    if (sum1 == 100) {
-                        for(int k = 0; k < su; k++){
-                            if( ( k != i) & (k != j)){ // 여기까지
-                                System.out.println(dwarf[k]);
-                            }
+        int[] arr = new int[9];
+        for(int i = 0; i < 9; i++){
+            arr[i] = sc.nextInt();
+            sum += arr[i];
+        }
+        
+        Arrays.sort(arr);        
+
+        int first = 0, second  = 0;
+
+        
+
+        for(int i = 0; i < 9; i++){
+            first = i;
+            for(int j = 0; j < 9; j++){
+                int sum1 = sum;
+
+                if(i != j){
+                    sum1 -= arr[i];
+                    sum1 -= arr[j];
+                    second = j;
+                }                
+
+
+                if(sum1 == 100){
+                    for(int k = 0; k < 9; k++){
+                        if(k != first && k != second){
+                         System.out.println(arr[k] );
                         }
-                        return;
-                    }
+                     }
+
+                    return;
                 }
             }
+            
         }
-    }
-    public static void makeDwarf(){
-        dwarf = new int[su];
-        Scanner scanner = new Scanner(System.in);
+    
+ 
+        
+        
 
-        for(int i = 0; i < su; i++){
-            dwarf[i] = scanner.nextInt();
-        }
+        
 
-        sort(dwarf);
-    }
-    public static void printDwarf(){
-        for(int i = 0; i < su; i++){
-            System.out.print(" "+ dwarf[i]);
-        }
+
     }
 }
