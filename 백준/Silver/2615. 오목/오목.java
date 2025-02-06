@@ -33,14 +33,14 @@ public class Main {
 
     }
 
-    static boolean checkWinner(int x, int y){
+    static boolean checkWinner(int x, int y) {
         int temp = arr[x][y];
 
-        if(temp == 0)
+        if (temp == 0)
             return false;
 
-        if(checkWinner1(x, y, temp) || checkWinner2(x,y,temp) || checkWinner3(x, y, temp)
-        || checkWinner4(x, y, temp)){
+        if (checkWinner1(x, y, temp) || checkWinner2(x, y, temp) || checkWinner3(x, y, temp)
+                || checkWinner4(x, y, temp)) {
             winner = temp;
             winnerX = x + 1;
             winnerY = y + 1;
@@ -48,150 +48,94 @@ public class Main {
         }
 
 
-
         return false;
     }
-
-    static boolean checkWinner1(int x, int y, int temp) {
-        // 세로 방향 검사 (|)
-
-        for (int i = 1; i < 5; i++) {
+        static boolean checkWinner1(int x, int y, int temp){
+        for(int i = 1; i < 5; i++){
             int nx = x + i;
-            if (!isIn(nx, y) || arr[nx][y] != temp) return false;
+            // 세로
+            if(!isIn(nx, y) || temp != arr[nx][y] )
+                return false;
         }
 
-        // 6개 이상 연속인지 검사 (여섯 번째 돌 체크)
-        if (isIn(x + 5, y) && arr[x + 5][y] == temp) return false;
-        if (isIn(x - 1, y) && arr[x - 1][y] == temp) return false;
+
+        if(isIn(x + 5, y) && arr[x + 5][y] == temp){
+            return false;
+        }
+
+        if(isIn(x - 1, y) && arr[x - 1][y] == temp){
+            return false;
+        }
 
         return true;
     }
 
-    static boolean checkWinner2(int x, int y, int temp) {
-        // 가로 방향 검사 (—)
 
-        for (int i = 1; i < 5; i++) {
+
+        static boolean checkWinner2(int x, int y, int temp){
+
+        for(int i = 1; i < 5; i++){
             int ny = y + i;
-            if (!isIn(x, ny) || arr[x][ny] != temp) return false;
+            if(!isIn(x, ny) || temp != arr[x][ny])
+                return false;
+        }
+        // 1 1 1 1 1 1
+        //   1 2 3 4 5
+        if(isIn(x, y + 5) && temp == arr[x][y + 5]) {
+            return false;
         }
 
-        // 6개 이상 연속인지 검사
-        if (isIn(x, y + 5) && arr[x][y + 5] == temp) return false;
-        if (isIn(x, y - 1) && arr[x][y - 1] == temp) return false;
+        if(isIn(x, y -1) && temp == arr[x][y - 1]){
+            return false;
+        }
 
         return true;
+
     }
 
-    static boolean checkWinner3(int x, int y, int temp) {
-        // 대각선 ↘ 방향 검사
-
-        for (int i = 1; i < 5; i++) {
+        static boolean checkWinner3(int x, int y, int temp){
+        for(int i = 1; i < 5; i++){
             int nx = x + i;
             int ny = y + i;
-            if (!isIn(nx, ny) || arr[nx][ny] != temp) return false;
+
+            if(!isIn(nx, ny) || temp != arr[nx][ny ])
+                return false;
         }
 
-        // 6개 이상 연속인지 검사
-        if (isIn(x + 5, y + 5) && arr[x + 5][y + 5] == temp) return false;
-        if (isIn(x - 1, y - 1) && arr[x - 1][y - 1] == temp) return false;
+        if(isIn(x + 5, y + 5) && arr[x + 5][y + 5] == temp){
+            return false;
+        }
+
+        if(isIn(x - 1, y - 1) && arr[x - 1][y - 1] == temp){
+            return false;
+        }
 
         return true;
     }
 
-    static boolean checkWinner4(int x, int y, int temp) {
-        // 대각선 ↙ 방향 검사
 
-        for (int i = 1; i < 5; i++) {
+
+
+
+    static boolean checkWinner4(int x, int y, int temp){
+        for(int i = 1; i < 5; i++){
             int nx = x - i;
             int ny = y + i;
-            if (!isIn(nx, ny) || arr[nx][ny] != temp) return false;
+
+            if(!isIn(nx, ny) || temp != arr[nx][ny ])
+                return false;
         }
 
-        // 6개 이상 연속인지 검사
-        if (isIn(x - 5, y + 5) && arr[x - 5][y + 5] == temp) return false;
-        if (isIn(x + 1, y - 1) && arr[x + 1][y - 1] == temp) return false;
+        if(isIn(x -5, y + 5) && arr[x -5][y + 5] == temp){
+            return false;
+        }
+
+        if(isIn(x + 1, y -1 ) && arr[x + 1][y -1 ] == temp){
+            return false;
+        }
 
         return true;
     }
-
-//    static boolean checkWinner1(int x, int y, int temp){
-//        for(int i = 1; i < 5; i++){
-//            int nx = x + i;
-//            // 세로
-//            if(!isIn(nx, y) || temp != arr[nx][y] )
-//                return false;
-//        }
-//
-//
-//        if(isIn(x + 5, y) && arr[x + 5][y] == temp){
-//            return false;
-//        }
-//
-//        if(isIn(x - 1, y) && arr[x - 1][y] == temp){
-//            return false;
-//        }
-//
-//        return true;
-//    }
-//    static boolean checkWinner2(int x, int y, int temp){
-//
-//        for(int i = 1; i < 5; i++){
-//            int ny = y + i;
-//            if(!isIn(x, ny) || temp != arr[x][ny])
-//                return false;
-//        }
-//        // 1 1 1 1 1 1
-//        //   1 2 3 4 5
-//        if(isIn(x, y + 5) && temp == arr[x][y + 5]) {
-//            return false;
-//        }
-//
-//        if(isIn(x, y -1) && temp == arr[x][y - 1]){
-//            return false;
-//        }
-//
-//        return true;
-//
-//    }
-//    static boolean checkWinner3(int x, int y, int temp){
-//        for(int i = 1; i < 5; i++){
-//            int nx = x + i;
-//            int ny = y + i;
-//
-//            if(!isIn(nx, ny) || temp != arr[nx][ny ])
-//                return false;
-//        }
-//
-//        if(isIn(x + 5, y + 5) && arr[x + 5][y + 5] == temp){
-//            return false;
-//        }
-//
-//        if(isIn(x - 1, y - 1) && arr[x - 1][y - 1] == temp){
-//            return false;
-//        }
-//
-//        return true;
-//    }
-//
-//    static boolean checkWinner4(int x, int y, int temp){
-//        for(int i = 1; i < 5; i++){
-//            int nx = x - i;
-//            int ny = y - i;
-//
-//            if(!isIn(nx, ny) || temp != arr[nx][ny ])
-//                return false;
-//        }
-//
-//        if(isIn(x -5, y -5) && arr[x -5][y - 5] == temp){
-//            return false;
-//        }
-//
-//        if(isIn(x + 1, y + 1) && arr[x + 1][y + 1] == temp){
-//            return false;
-//        }
-//
-//        return true;
-//    }
     static boolean isIn(int x, int y){
         return x >= 0 && x < 19 && y >=0 && y < 19;
     }
