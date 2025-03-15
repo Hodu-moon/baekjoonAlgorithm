@@ -1,78 +1,95 @@
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main {
-    static int[] inDegree, times, result;
-
+public class Main{
     static int N, K, W;
-    static List<List<Integer>> lists;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        for(int t = 1; t <= T; t++){
-            N = sc.nextInt();
-            K = sc.nextInt();
-            inDegree = new int[N + 1];
-            times = new int[N + 1];
-            result = new int[N + 1];
+    static int[] originTimes,resultTimes, inDegree;
+    static List<List<Integer>> graph;
+    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws  Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
 
-            lists = new ArrayList<>();
-            lists.add(new ArrayList<>());
+        for(int t = 1; t <= T; t++){
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            N = Integer.parseInt(st.nextToken());
+            K = Integer.parseInt(st.nextToken());
+            originTimes = new int[N + 1];
+            resultTimes = new int[N + 1];
+            inDegree = new int[N + 1];
+
+            st = new StringTokenizer(br.readLine(), " ");
+
             for(int i = 1; i <= N; i++){
-                times[i] = sc.nextInt();
-                lists.add(new ArrayList<>());
+                originTimes[i] = Integer.parseInt(st.nextToken());
             }
 
+            graph = new ArrayList<>();
+            for(int i = 0; i <= N; i++)
+                graph.add(new ArrayList<>());
+
+
             for(int i = 0; i < K; i++){
-                int before = sc.nextInt();
-                int next = sc.nextInt();
-                lists.get(before).add(next);
+                st = new StringTokenizer(br.readLine(), " ");
+                int before = Integer.parseInt(st.nextToken());
+                int next = Integer.parseInt(st.nextToken());
+
+                graph.get(before).add(next);
                 inDegree[next]++;
             }
 
-            W = sc.nextInt();
+            W = Integer.parseInt(br.readLine());
 
             topologySort();
-            System.out.println(result[W]);
+
+
+
+            sb.append(resultTimes[W]).append("\n");
         }
 
+        System.out.println(sb);
+
     }
+
     static void topologySort(){
         Queue<Integer> queue = new ArrayDeque<>();
 
         for(int i = 1; i <= N; i++){
             if(inDegree[i] == 0){
-                queue.add(i);
-                result[i] = times[i];
+                queue.offer(i);
+                resultTimes[i] = originTimes[i];
             }
         }
 
-        while (!queue.isEmpty()){
+        while(!queue.isEmpty()){
             int before = queue.poll();
 
-            for(int next : lists.get(before)){
-                inDegree[next]--;
+            for(int next : graph.get(before)){
 
-                result[next] = Math.max(result[next], result[before] + times[next]);
+                inDegree[next]--;
+                resultTimes[next] = Math.max(resultTimes[next], resultTimes[before] + originTimes[next] );
 
                 if(inDegree[next] == 0){
-                    queue.add(next);
+                    queue.offer(next);
+
+                    if(next == W){
+                        return;
+                    }
                 }
-
             }
-        }
 
+        }
 
 
     }
 }
-
-// 4 4
+//4 4
 //10 1 100 10
 //1 2
 //1 3
 //2 4
 //3 4
 //4
-//8 8

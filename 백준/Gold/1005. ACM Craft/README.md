@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 310380 KB, 시간: 2144 ms
+메모리: 243212 KB, 시간: 656 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2025년 3월 1일 18:37:52
+2025년 3월 15일 23:54:57
 
 ### 문제 설명
 
@@ -22,7 +22,7 @@
 
 <p> </p>
 
-<p style="text-align: center;"><img alt="" src="" style="height:335px; width:635px"></p>
+<p style="text-align: center;"><img alt="" src="https://www.acmicpc.net/upload/201003/star.JPG" style="height:335px; width:635px"></p>
 
 <p>위의 예시를 보자.</p>
 
