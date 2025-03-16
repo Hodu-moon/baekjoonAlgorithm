@@ -1,51 +1,64 @@
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int N, M;
-    static List<Integer> lans = new ArrayList<>();
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-        M = sc.nextInt();
-        long max = 0;
-        for(int i = 0; i < N;i++){
-            int lan = sc.nextInt();
-            lans.add(lan);
+    static int N, TARGET;
+    static long start, end;
 
-            max = Math.max(max, lan);
+    static int[] lans;
+
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        start = 0;
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        N = Integer.parseInt(st.nextToken());
+        TARGET = Integer.parseInt(st.nextToken());
+
+        lans = new int[N];
+
+
+        for(int i = 0; i < N; i++){
+            lans[i] = Integer.parseInt(br.readLine());
+            end = Math.max(lans[i], end);
         }
 
-        max++;
-        long min = 0;
-        long mid = 0;
-
-        while(min < max){
-
-            mid = (min + max) / 2;
-
-            long count = 0;
-            for(int lan : lans){
-                count += (lan / mid);
-            }
-
-            // 800 400  인데 3개로 자르라함
-            // 800으로 자름 그러면 1임
-            // 부족함 줄여야함
-            if(count < M){
-                max = mid;
-            }else{
-                min = mid + 1;
-            }
-        }
-        System.out.println(min - 1);
+        end++;
+        solve();
 
 
+        System.out.println(end - 1);
 
     }
 
-}
+    static void solve(){
 
+        while(start < end){
+            long mid = (start + end )/ 2;
+
+//            System.out.println(getCount(mid));
+            if(getCount(mid)  >= TARGET){
+                start = mid +1;
+
+            }else{ // count < target
+                end = mid;
+            }
+        }
+
+    }
+
+    static int getCount(long mid){
+        int count = 0;
+
+        for(int lan : lans){
+            count += lan / mid;
+        }
+
+        return count;
+    }
+}
 //4 11
 //802
 //743
