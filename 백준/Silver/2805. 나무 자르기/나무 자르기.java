@@ -1,45 +1,64 @@
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
+public class Main{
+    static int N, TARGET;
+    static long result, end;
+    static int[] trees;
+    public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
 
-        long tree[] = new long[N];
+        N = Integer.parseInt(st.nextToken());
+        TARGET = Integer.parseInt(st.nextToken());
+
         st = new StringTokenizer(br.readLine());
-        int i = 0;
-        while(st.hasMoreTokens()){
-            tree[i] = Integer.parseInt(st.nextToken());
-            i++;
+        trees = new int[N];
+        for(int i = 0; i < N; i++ ){
+            trees[i] = Integer.parseInt(st.nextToken());
+            end = Math.max(end, trees[i]);
         }
-        Arrays.sort(tree);
 
-        long mid = 0;
-        long hi = tree[tree.length-1];
-        long lo = 0;
-        while(lo < hi){
-            mid = (hi + lo) / 2;
-            long sum = 0;
+        solve();
 
-            for(int k = 0; k < tree.length; k++){
-                long e = tree[k] - mid ;
-                if(e > 0)
-                    sum = sum + e;
+        System.out.println(end - 1);
+    }
+
+    static void solve(){
+        long start = 0;
+        long sum = 0;
+
+        while(start < end){
+            long mid = (start + end) / 2;
+
+            // mid로 자른 나무 합 구하기
+            sum = cutTree(mid);
+//            System.out.println("here");
+
+
+            if(TARGET <= sum){
+                start = mid + 1;
+            }else{ // TARGET > sum
+                 end = mid;
             }
-
-            if( sum < M ){
-                hi = mid;
-            }else
-                lo = mid + 1;
         }
-        System.out.println(lo-1);
+
+
 
     }
+
+    static long cutTree(long mid){
+
+        long sum = 0;
+        for(int i = 0; i < N; i++){
+            sum += Math.max(trees[i] - mid, 0);
+        }
+        return sum;
+    }
 }
+
+
+//4 7
+//20 15 10 17
