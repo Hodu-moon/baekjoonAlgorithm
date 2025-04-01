@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Main{
+public class Main {
 
     public static void main(String[] args) throws Exception{
         // V , E
@@ -37,6 +37,8 @@ public class Main{
         boolean[] visited = new boolean[V+1];
         // 1. pq
 
+        int cnt = 0;
+
         while(!pq.isEmpty()){
             Vertex current =  pq.poll();
 
@@ -45,6 +47,9 @@ public class Main{
 
             visited[current.no] = true;
             distance[current.no] = current.weight;
+            if(++cnt == V){
+                break;
+            }
 
 
             for(Vertex vertex : edgeList.get(current.no)){
@@ -65,9 +70,6 @@ public class Main{
         for (int i = 1; i <= V; i++){
             System.out.println(distance[i] == Integer.MAX_VALUE ? "INF" : distance[i]);
         }
-
-
-
     }
 
     static class Vertex implements Comparable<Vertex>{
