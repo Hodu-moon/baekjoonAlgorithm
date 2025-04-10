@@ -47,6 +47,10 @@ public class Main {
 			if(union(edge.from, edge.to)) {
 				result += edge.weight;
 	
+				if(edge.from != 0 && ++cnt == N-1) {
+					break;
+				}
+				
 			}
 			
 		}
