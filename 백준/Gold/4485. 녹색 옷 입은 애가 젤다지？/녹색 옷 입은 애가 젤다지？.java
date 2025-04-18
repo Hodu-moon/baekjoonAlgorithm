@@ -1,10 +1,20 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
+
+
+// 18396KB	168ms
+// 아이디어
+// 1. 0, 0 -> N-1, N-1 로 이동해야하는데 루피를 최소를 먹어야함
+// 2. 각 맵에 있는 루피를 가중치로 생각하자
+// 	 N 이 2인 배열에서 1 1
+//                1 1 이 있다면 
+//  from (0, 0) to (1, 0)  weight 1
+// 3. dijkstra - 시작정점에서 다른 정점까지의 최소 비용 
+
 
 public class Main {
 
@@ -35,8 +45,6 @@ public class Main {
             result = new int[N][N];
 
 
-
-
             for(int i = 0; i < N; i++){
                 StringTokenizer st = new StringTokenizer(br.readLine(), " ");
                 for(int j= 0; j < N; j++){
@@ -55,11 +63,13 @@ public class Main {
     }
 
     static void dijkstra(){
-
+    	// 현재 결과  기본적으로 dist 배열 이라고 하는데 나는 result 라고 했음 
+    	// 무한대로 
         for(int i = 0; i < N; i++){
             Arrays.fill(result[i], Integer.MAX_VALUE);
         }
 
+        // 
         result[0][0] = 0;
         PriorityQueue<Position> pq = new PriorityQueue<>();
         pq.offer(new Position(0, 0, map[0][0]));
@@ -71,6 +81,10 @@ public class Main {
             visited[current.x][current.y] = true;
             result[current.x][current.y] = current.weight;
 
+            if(current.x  == N-1 && current.y == N - 1)
+            	return;
+            
+            
             // step 2:
 
             for(int d = 0; d < 4; d++){
