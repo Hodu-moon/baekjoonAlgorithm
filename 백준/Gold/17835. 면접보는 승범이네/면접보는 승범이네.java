@@ -83,9 +83,9 @@ public class Main {
             visited[(int) current.index] = true;
             temp[(int) current.index] = current.weight;
 
-//            if(++cnt == N ){
-//                break;
-//            }
+            if(++cnt == N ){
+                break;
+            }
 
 
             // 2. 가중치 업데이트
