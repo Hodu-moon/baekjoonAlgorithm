@@ -1,15 +1,23 @@
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
-public class Main{
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+public class Main {
+    public static void main(String[] args) throws IOException {
+//        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         int[] arr = new int[N];
         int[] LIS = new int[N];
+
+        String input = br.readLine();
+        StringTokenizer st = new StringTokenizer(input);
+
         for(int i = 0; i < N; i++){
-            arr[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
         int size = 0;
@@ -33,5 +41,3 @@ public class Main{
 
     }
 }
-//4
-//2 3 4 1
