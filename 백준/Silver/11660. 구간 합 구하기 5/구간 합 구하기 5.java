@@ -1,48 +1,47 @@
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-        int prefixSum[][] = new int[N + 1][N + 1];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N, M;
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        int[][] map = new int[N + 1][N + 1];
+
         for(int i = 1; i <= N; i++){
-            for(int j= 1; j <= N; j++){
-                prefixSum[i][j] = prefixSum[i - 1][j] + prefixSum[i][j - 1] - prefixSum[i -1][j -1]
-                        + sc.nextInt();
+            st = new StringTokenizer(br.readLine());
+            for(int j = 1; j <= N; j++){
+                int temp = Integer.parseInt(st.nextToken());
+                map[i][j] = temp + map[i - 1][j] + map[i][j - 1] - map[i - 1][j - 1];
             }
         }
 
-//        System.out.println();
 
-//        for(int [] xx : prefixSum){
-//            for(int x : xx){
-//                System.out.print(x + " ");
-//            }
-//            System.out.println();
-//        }
+        StringBuilder sb = new StringBuilder();
 
         for(int i = 0; i < M; i++){
-            int x1 = sc.nextInt();
-            int y1 = sc.nextInt();
-            int x2 = sc.nextInt();
-            int y2 = sc.nextInt();
+            st = new StringTokenizer(br.readLine());
 
-            //
-            //2 2 3 4
+            int x1, y1, x2, y2;
+            x1 = Integer.parseInt(st.nextToken());
+            y1 = Integer.parseInt(st.nextToken());
+            x2 = Integer.parseInt(st.nextToken());
+            y2 = Integer.parseInt(st.nextToken());
 
-            // ㅁ ㅁ ㅁ ㅁ
-            // ㅁ ㅁ ㅁ ㅁ
-            // ㅁ ㅁ ㅁ ㅁ
-            // ㅁ ㅁ ㅁ ㅁ
-            //3 4 3 4 -> 6
-            // 3 4 -> 42 - 24 - 27 + 15
-            // -36
-            System.out.println(
-                    prefixSum[x2][y2] - prefixSum[x1 -1][y2] - prefixSum[x2][y1-1] + prefixSum[x1-1][y1-1]
-            );
+
+            sb.append(map[x2][y2] - map[x1 - 1][y2] - map[x2][y1 - 1] + map[x1 - 1][y1 - 1] ).append("\n");
+
         }
+
+        System.out.println(sb);
+
+
     }
 }
 //4 3
